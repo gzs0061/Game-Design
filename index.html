@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&display=swap');
+    </style>
+    <title>Cloud Buster 3000</title>
+</head>
+<body>
+
+    <h1>Cloud Buster 3000</h1>
+
+    <img id="cloud-image" src="" alt="Cloud">
+
+    <p>What type of cloud is this?</p>
+
+    <input type="text" id="user-answer">
+
+    <button onclick="checkAnswer()">Submit</button>
+    <button onclick="nextCloud()">Next Cloud</button>
+
+    <p id="result"></p>
+    <p>Score: <span id="score">0</span></p>
+
+    <button id="cloud-index">Get to know the clouds</button>
+    <div id="image-container" style="display: none;">
+        <img id="image" src="images/cloud-index.png">
+        <button id="close-image-button">Back to Quiz</button>
+    </div>
+
+    <script>// List of cloud images and their corresponding names
+        var clouds = [
+            { name: 'cumulus', image: "images/cumulus.png" },
+            { name: 'stratus', image: "images/stratus.png" },
+            { name: 'nimbostratus', image: "images/nimbostratus.png" },
+            { name: 'cumulonimbus', image: "images/cumulonimbus.png" },
+            { name: 'altostratus', image: "images/altostratus.png" },
+            { name: 'cirrus', image: "images/cirrus.png" },
+            { name: 'cirrostratus', image: "images/cirrostratus.png" },
+            { name: 'stratocumulus', image: "images/stratocumulus.png" },
+            { name: 'cirrocumulus', image: "images/cirrocumulus.png" },
+            { name: 'altocumulus', image: "images/altocumulus.png" },
+        ]
+
+        var score = 0;
+        var currentIndex = 0;
+
+        // Display the current cloud image
+
+        displayCloud();
+
+        function checkAnswer() {
+            // Get the user's answer
+            var userAnswer = document.getElementById("user-answer").value;
+            var correctAnswer = clouds[currentIndex].name;
+
+            // Check if the user's answer is correct
+            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                document.getElementById("result").innerHTML = "Correct! The type of cloud is " + correctAnswer + ".";
+                score++;
+            } else {
+                document.getElementById("result").innerHTML = "Incorrect. The type of cloud is " + correctAnswer + ".";
+            }
+            // Update the score
+            document.getElementById("score").innerHTML = score;
+
+        }
+
+        function nextCloud() {
+            // Get the next random cloud
+            currentIndex = Math.floor(Math.random() * clouds.length);
+
+            // Display the next cloud image
+            displayCloud();
+        }
+
+        function displayCloud() {
+            document.getElementById("cloud-image").src = clouds[currentIndex].image;
+        }
+
+        const cloudIndex = document.getElementById("cloud-index");
+        const imageContainer = document.getElementById("image-container");
+        const closeImageButton = document.getElementById("close-image-button");
+
+        cloudIndex.addEventListener("click", () => {
+            imageContainer.style.display = "block";
+        });
+
+        closeImageButton.addEventListener("click", () => {
+            imageContainer.style.display = "none";
+        });</script>
+
+</body>
+</html>
+
